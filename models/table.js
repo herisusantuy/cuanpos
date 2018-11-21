@@ -4,8 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     covers: DataTypes.INTEGER
   }, {});
-  Table.associate = function(models) {
+  Table.associate = function (models) {
     // associations can be defined here
+    Table.belongsToMany(models.Item, { through: models.Transaction })
   };
   return Table;
 };
