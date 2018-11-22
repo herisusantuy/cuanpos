@@ -12,10 +12,8 @@ class UserController {
             createdAt: new Date,
             updatedAt: new Date
         }
-        // res.send(newUser)
         User.create(newUser)
             .then(() => {
-                // res.send('berhasil update data')
                 res.redirect('/user/dashboard')
             })
     }
