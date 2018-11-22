@@ -7,17 +7,21 @@ module.exports = (sequelize, DataTypes) => {
     ItemId: DataTypes.INTEGER,
     qty: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER,
-    TransactionTypeId: DataTypes.INTEGER
+    TransactionTypeId: DataTypes.INTEGER,
+    price: DataTypes.INTEGER,
+    ppn: DataTypes.INTEGER,
+    service: DataTypes.INTEGER,
+    total: DataTypes.INTEGER
   }, {
       hooks: {
-        afterCreate(transacton, options) {
+        afterCreate(transaction, options) {
           return sequelize.models.Table.findOne({
             where: {
-              id: transacton.TableId
+              id: transaction.TableId
             }
           })
             .then(table => {
-              table.status = 0
+              table.status = 1
               table.updatedAt = new Date
               return table.save()
             })
@@ -31,5 +35,15 @@ module.exports = (sequelize, DataTypes) => {
     Transaction.belongsTo(models.User)
     // Transaction.belongsTo(models.TransactionType)
   };
+  Transaction.prototype.totalPPN = function () {
+    return this.qty * this.price * 0.1
+
+  }
+  Transaction.prototype.totalService = function () {
+    return this.qty * this.price * 0.11
+  }
+  Transaction.prototype.totalSales = function () {
+    return (this.qty * this.price) + totalPPN() + totalService()
+  }
   return Transaction;
 };
