@@ -1,11 +1,9 @@
 const router = require('express').Router()
+const TableController = require('../../controllers/tableController')
 
 
 
-router.get('/', (req, res) => {
-    // res.send('form table')
-    res.render('./tables/table.ejs')
-})
+router.get('/', TableController.displayTable)
 
 
 module.exports = router
