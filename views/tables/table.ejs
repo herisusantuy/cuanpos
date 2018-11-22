@@ -14,10 +14,10 @@
         <%tables.forEach(table=>{%>
         <div class="w3-third">
             <div class="w3-card">
-                <img src="img_5terre.jpg" style="width:100%">
                 <div class="w3-container">
-                    <h5>
-                        <%=table.name%>
+                    <h5><a href="/item/<%=table.id%>">
+                            <%=table.name%>
+                        </a>
                     </h5>
                 </div>
             </div>
