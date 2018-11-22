@@ -37,6 +37,12 @@
   <br>
   <br>
   <div class="container">
+      <% if (info) { %>
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong><%= info %></strong>
+          </div>
+    <% } %>
     <br>
     <br>
 
@@ -50,7 +56,7 @@
           value="">
       </div>
       <div class="form-group">
-        <label for="stock">Password: </label>
+        <label for="password">Password: </label>
         <input type="password" name="password" class="form-control" aria-describedby="passwordHelp" placeholder="Enter Operator Password"
           value="">
       </div>
@@ -64,47 +70,53 @@
         </select>
       </div>
       <button type="submit" class="btn btn-primary">Add Operator</button>
-
-
     </form>
 
     <br>
     <br>
-    <h2>List Robot</h2>
-    <table class="table">
-      <thead style="text-align:center">
-        <tr>
-          <th scope="col">No</th>
-          <th scope="col">Name</th>
-          <th scope="col">Stock</th>
-          <th scope="col">Price</th>
-          <th scope="col">Options</th>
-        </tr>
-      </thead>
-      <tbody style="text-align:center">
+    <br>
+    <h2>Add New Item</h2>
+    <br>
+    <form action="/item/add" method="post">
 
-        <tr scope="row">
-          <td>1</td>
-          <td>213123</td>
-          <td>0</td>
-          <td>$ 0</td>
-          <td>
-            <form action="/robots/buy/51" method="post" style="display:inline">
-              <input type="number" name="stock">
-              <button type="submit" class="btn btn-primary">Buy</button>
-            </form>
-            <form action="/robots/produce/51" method="post" style="display:inline">
-              <input type="number" name="stock">
-              <button type="submit" class="btn btn-primary">Produce</button>
-            </form>
-          </td>
-        </tr>
+      <div class="form-group">
+        <label for="name">Name: </label>
+        <input type="text" name="name" class="form-control" aria-describedby="emailHelp" placeholder="Enter Item Name"
+          value="">
+      </div>
+      <div class="form-group">
+        <label for="price">Price: </label>
+        <input type="number" name="price" class="form-control" aria-describedby="priceHelp" placeholder="Enter Item Price"
+          value="">
+      </div>
+      <button type="submit" class="btn btn-primary">Add Item</button>
+    </form>
 
+    <br>
+    <br>
+    <br>
+    <h2>Add New Table</h2>
+    <br>
+    <form action="/table/add" method="post">
 
+      <div class="form-group">
+        <label for="name">Name: </label>
+        <input type="text" name="name" class="form-control" aria-describedby="emailHelp" placeholder="Enter Table Name"
+          value="">
+      </div>
+      <div class="form-group">
+        <label for="covers">Covers: </label>
+        <input type="number" name="covers" class="form-control" aria-describedby="priceHelp" placeholder="Enter Table Covers"
+          value="">
+      </div>
+      <button type="submit" class="btn btn-primary">Add Table</button>
+    </form>
 
-      </tbody>
-    </table>
-
+    <br>
+    <br>
+    <br>
+    <h2>Reports</h2>
+    <br>
   </div>
   <div style="height: 100px"></div>
   <br>
