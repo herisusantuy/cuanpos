@@ -37,7 +37,7 @@ class UserController {
     }
 
     static renderDashboard(req, res) {
-        res.render('dashboard.ejs')
+        res.render('dashboard.ejs', {info:req.query.info})
     }
 }
 
