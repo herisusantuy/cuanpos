@@ -2,53 +2,35 @@ const { User } = require('../models/index')
 const bcrypt = require('bcryptjs')
 const salt = bcrypt.genSaltSync(10)
 
-
-
-
-// // hash password dengan salt 
-// var hash = bcrypt.hashSync("my password", salt)
-
-// var hashPassword = bcrypt.hashSync("iniSaya", salt);
-// // "iniSaya" yang nantinya akan di hash dengen salt.
-// console.log(salt)
-// console.log(hash)
-// console.log(hashPassword) 
-
 class UserController {
     static addUser(req, res) {
-        let hashPassword = bcrypt.hashSync('P@ssword', salt)
-        // console.log(hashPassword)
+        let hashPassword = bcrypt.hashSync(req.body.password, salt)
         let newUser = {
-            name: 'Sulis Tayo',
+            name: req.body.name,
             password: hashPassword,
-            role: 'Manager',
+            role: req.body.role,
             createdAt: new Date,
             updatedAt: new Date
         }
         // res.send(newUser)
-        // User.create(newUser)
-        //     .then(() => {
-        //         res.send('berhasil update data')
-        //     })
+        User.create(newUser)
+            .then(() => {
+                // res.send('berhasil update data')
+                res.redirect('/user/dashboard')
+            })
     }
-    // static login(req, res) {
-    //     bcrypt.compare("iniSaya", hash, function (err, res) {
-
-    //     })
-    // }
     static renderLoginPage(req, res) {
-        res.render('login.ejs')
+        res.render('login.ejs', { errors: req.query.errors })
     }
 
     static postLogin(req, res) {
-        User.findOne({ where: { password: req.body.password } })
+        User.findOne({ where: { name: req.body.name } })
             .then(data => {
-                if (data.password == req.body.password) {
+                if (bcrypt.compareSync(req.body.password, data.password)) {
                     req.session.user = { name: data.name, role: data.role }
-                    // res.redirect()
-                }
-                else {
-                    // res.redirect()
+                    res.render('home.ejs', { session: req.session.user })
+                } else {
+                    res.redirect('/user/login?errors=Username%20or%20password%20salah!!')
                 }
             })
             .catch(err => {
